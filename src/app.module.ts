@@ -13,6 +13,7 @@ import { MemoryEntity } from './storage/entities/memory.entity';
 import { PendingActionEntity } from './storage/entities/pending-action.entity';
 import { AgentSettingsEntity } from './storage/entities/agent-settings.entity';
 import { StorageModule } from './storage/storage.module';
+import { TeeModule } from './tee/tee.module';
 import { HealthModule } from './health/health.module';
 
 const logger = new Logger('AppModule');
@@ -59,6 +60,7 @@ const logger = new Logger('AppModule');
     }),
 
     StorageModule,
+    TeeModule,
     HealthModule,
   ],
 })
