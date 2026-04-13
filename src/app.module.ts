@@ -1,5 +1,6 @@
 import { Module, Logger } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import configuration from './config/configuration';
 import { AgentEntity } from './storage/entities/agent.entity';
@@ -14,6 +15,9 @@ import { PendingActionEntity } from './storage/entities/pending-action.entity';
 import { AgentSettingsEntity } from './storage/entities/agent-settings.entity';
 import { StorageModule } from './storage/storage.module';
 import { TeeModule } from './tee/tee.module';
+import { AgentModule } from './agent/agent.module';
+import { NotificationModule } from './notifications/notification.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
 import { HealthModule } from './health/health.module';
 
 const logger = new Logger('AppModule');
@@ -59,8 +63,13 @@ const logger = new Logger('AppModule');
       },
     }),
 
+    ScheduleModule.forRoot(),
+
     StorageModule,
     TeeModule,
+    AgentModule,
+    NotificationModule,
+    SchedulerModule,
     HealthModule,
   ],
 })
