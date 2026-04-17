@@ -35,6 +35,15 @@ export default () => ({
     friendbotUrl: process.env.STELLAR_FRIENDBOT_URL || 'https://friendbot.stellar.org',
   },
 
+  solana: {
+    rpcUrl: process.env.SOLANA_RPC_URL || 'https://api.devnet.solana.com',
+    explorerUrl: process.env.SOLANA_EXPLORER_URL || 'https://explorer.solana.com',
+    cluster: process.env.SOLANA_CLUSTER || 'devnet',
+    announcerProgramId: process.env.SOLANA_ANNOUNCER_PROGRAM_ID || '',
+    senderProgramId: process.env.SOLANA_SENDER_PROGRAM_ID || '',
+    namesProgramId: process.env.SOLANA_NAMES_PROGRAM_ID || '',
+  },
+
   gemini: {
     apiKey: process.env.GEMINI_API_KEY || '',
   },
