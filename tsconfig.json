@@ -1,6 +1,20 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "paths": {
+      "@wraith-protocol/sdk/chains/evm": [
+        "./node_modules/@wraith-protocol/sdk/dist/chains/evm/index.d.cts"
+      ],
+      "@wraith-protocol/sdk/chains/stellar": [
+        "./node_modules/@wraith-protocol/sdk/dist/chains/stellar/index.d.cts"
+      ],
+      "@wraith-protocol/sdk/chains/solana": [
+        "./node_modules/@wraith-protocol/sdk/dist/chains/solana/index.d.cts"
+      ],
+      "@wraith-protocol/sdk/chains/ckb": [
+        "./node_modules/@wraith-protocol/sdk/dist/chains/ckb/index.d.cts"
+      ]
+    },
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,

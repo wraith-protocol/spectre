@@ -34,9 +34,10 @@ import {
   bytesToHex,
   hexToBytes,
   SCHEME_ID,
+  STEALTH_SIGNING_MESSAGE,
   type StealthKeys,
   type Announcement,
-} from './stellar-crypto';
+} from '@wraith-protocol/sdk/chains/stellar';
 
 export interface StellarChainConfig {
   chain: string;

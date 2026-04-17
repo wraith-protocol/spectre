@@ -31,9 +31,10 @@ import {
   bytesToHex,
   hexToBytes,
   SCHEME_ID,
+  STEALTH_SIGNING_MESSAGE,
   type StealthKeys,
   type Announcement,
-} from './solana-crypto';
+} from '@wraith-protocol/sdk/chains/solana';
 
 export interface SolanaConnectorConfig {
   chain: string;

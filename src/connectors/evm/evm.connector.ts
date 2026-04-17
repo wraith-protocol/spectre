@@ -33,62 +33,15 @@ import {
   decodeStealthMetaAddress,
   signNameRegistration,
   metaAddressToBytes,
+  fetchAnnouncements as sdkFetchAnnouncements,
   SCHEME_ID,
   STEALTH_SIGNING_MESSAGE,
+  SENDER_ABI,
+  NAMES_ABI,
   type HexString,
   type Announcement,
   type StealthKeys,
-} from './evm-crypto';
-
-const WRAITH_SENDER_ABI = [
-  {
-    name: 'sendETH',
-    type: 'function',
-    stateMutability: 'payable',
-    inputs: [
-      { name: 'schemeId', type: 'uint256' },
-      { name: 'stealthAddress', type: 'address' },
-      { name: 'ephemeralPubKey', type: 'bytes' },
-      { name: 'metadata', type: 'bytes' },
-    ],
-    outputs: [],
-  },
-  {
-    name: 'sendERC20',
-    type: 'function',
-    stateMutability: 'payable',
-    inputs: [
-      { name: 'token', type: 'address' },
-      { name: 'amount', type: 'uint256' },
-      { name: 'schemeId', type: 'uint256' },
-      { name: 'stealthAddress', type: 'address' },
-      { name: 'ephemeralPubKey', type: 'bytes' },
-      { name: 'metadata', type: 'bytes' },
-    ],
-    outputs: [],
-  },
-] as const;
-
-const WRAITH_NAMES_ABI = [
-  {
-    name: 'resolve',
-    type: 'function',
-    stateMutability: 'view',
-    inputs: [{ name: 'name', type: 'string' }],
-    outputs: [{ name: '', type: 'bytes' }],
-  },
-  {
-    name: 'register',
-    type: 'function',
-    stateMutability: 'nonpayable',
-    inputs: [
-      { name: 'name', type: 'string' },
-      { name: 'stealthMetaAddress', type: 'bytes' },
-      { name: 'signature', type: 'bytes' },
-    ],
-    outputs: [],
-  },
-] as const;
+} from '@wraith-protocol/sdk/chains/evm';
 
 const ERC20_ABI = [
   {
@@ -202,7 +155,7 @@ export class EvmConnector implements ChainConnector {
     if (assetUpper === 'ETH') {
       txHash = await walletClient.writeContract({
         address: this.config.senderAddress,
-        abi: WRAITH_SENDER_ABI,
+        abi: SENDER_ABI,
         functionName: 'sendETH',
         args: [
           SCHEME_ID,
@@ -230,7 +183,7 @@ export class EvmConnector implements ChainConnector {
 
       txHash = await walletClient.writeContract({
         address: this.config.senderAddress,
-        abi: WRAITH_SENDER_ABI,
+        abi: SENDER_ABI,
         functionName: 'sendERC20',
         args: [
           tokenAddress,
@@ -417,7 +370,7 @@ export class EvmConnector implements ChainConnector {
 
     const txHash = await walletClient.writeContract({
       address: this.config.namesAddress,
-      abi: WRAITH_NAMES_ABI,
+      abi: NAMES_ABI,
       functionName: 'register',
       args: [cleanName, metaBytes, signature],
     });
@@ -430,7 +383,7 @@ export class EvmConnector implements ChainConnector {
       const cleanName = name.replace(/\.wraith$/, '');
       const resultBytes = await this.publicClient.readContract({
         address: this.config.namesAddress,
-        abi: WRAITH_NAMES_ABI,
+        abi: NAMES_ABI,
         functionName: 'resolve',
         args: [cleanName],
       });

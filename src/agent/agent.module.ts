@@ -5,6 +5,7 @@ import { ChainRegistry } from '../connectors/chain-registry';
 import { EvmConnector } from '../connectors/evm/evm.connector';
 import { StellarConnector } from '../connectors/stellar/stellar.connector';
 import { SolanaConnector } from '../connectors/solana/solana.connector';
+import { CKBConnector } from '../connectors/ckb/ckb.connector';
 import { AgentService } from './agent.service';
 import { AgentController } from './agent.controller';
 import { AgentToolsService } from './tools/agent-tools.service';
@@ -63,6 +64,33 @@ import type { Hex } from 'viem';
               names: config.get<string>('solana.namesProgramId')!,
             },
             cluster: config.get<string>('solana.cluster')! as 'devnet' | 'testnet' | 'mainnet-beta',
+          }),
+        );
+
+        registry.register(
+          'ckb',
+          new CKBConnector({
+            chain: 'ckb',
+            rpcUrl: config.get<string>('ckb.rpcUrl') || 'https://testnet.ckbapp.dev',
+            explorerUrl:
+              config.get<string>('ckb.explorerUrl') || 'https://pudge.explorer.nervos.org',
+            stealthLockCodeHash:
+              config.get<string>('ckb.stealthLockCodeHash') ||
+              '0x31f6ab9c7e7a26ecba980b838ac3b5bd6c3a2f1b945e75b7cf7e6a46cb19cb87',
+            cellDeps: {
+              stealthLock: {
+                txHash:
+                  config.get<string>('ckb.stealthLockCellDepTxHash') ||
+                  '0xde1e8e4bed2d1d7102b9ad3d7a74925ace007800ae49498f9c374cb4968dd32b',
+                index: 0,
+              },
+              ckbAuth: {
+                txHash:
+                  config.get<string>('ckb.ckbAuthCellDepTxHash') ||
+                  '0xa0e99b29fd154385815142b76668d5f4ecf30ae85bc2942bd21e9e51b9066f97',
+                index: 0,
+              },
+            },
           }),
         );
 

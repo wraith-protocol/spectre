@@ -16,7 +16,8 @@ Client SDK → Spectre TEE Server → Chain Connectors → Blockchains
 - **TypeORM** with PostgreSQL for persistence
 - **Phala DStack SDK** for deterministic key derivation inside TEE
 - **Google Gemini** for AI chat with multi-turn tool calling
-- **Chain connectors** for EVM (Horizen), Stellar, and Solana
+- **Chain connectors** for EVM (Horizen), Stellar, Solana, and CKB (Nervos)
+- **`@wraith-protocol/sdk`** for all stealth address cryptography (no inline crypto)
 
 ## Supported Chains
 
@@ -25,6 +26,7 @@ Client SDK → Spectre TEE Server → Chain Connectors → Blockchains
 | Horizen | EVM     | Live   | ETH          |
 | Stellar | Stellar | Live   | XLM          |
 | Solana  | Solana  | Live   | SOL          |
+| CKB     | Nervos  | Live   | CKB          |
 
 ## API Endpoints
 
