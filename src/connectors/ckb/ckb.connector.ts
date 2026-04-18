@@ -7,6 +7,11 @@ import {
   encodeStealthMetaAddress,
   decodeStealthMetaAddress,
   fetchStealthCells,
+  hashName,
+  buildRegisterName,
+  buildResolveName,
+  metaAddressFromNameData,
+  getDeployment,
   SCHEME_ID,
   STEALTH_SIGNING_MESSAGE,
   type HexString,
@@ -204,12 +209,66 @@ export class CKBConnector implements ChainConnector {
     };
   }
 
-  async registerName(): Promise<TxResult> {
-    return { txHash: '', txLink: 'CKB names not yet supported' };
+  async registerName(name: string, stealthKeys: ChainStealthKeys): Promise<TxResult> {
+    const keys = stealthKeys as unknown as StealthKeys;
+    const { typeScript, data } = buildRegisterName({
+      name,
+      spendingPubKey: keys.spendingPubKey,
+      viewingPubKey: keys.viewingPubKey,
+      chain: this.chain,
+    });
+
+    this.logger.warn(
+      `CKB name registration transaction building not yet fully implemented. ` +
+        `Name "${name}" would create a Cell with type script ` +
+        `codeHash=${typeScript.codeHash}, args=${typeScript.args}, ` +
+        `data=${data} (66-byte meta-address)`,
+    );
+
+    return {
+      txHash: '0x',
+      txLink: `Name "${name}" registration prepared (type: ${typeScript.codeHash}, args: ${typeScript.args})`,
+    };
   }
 
-  async resolveName(): Promise<ResolvedName | null> {
-    return null;
+  async resolveName(name: string): Promise<ResolvedName | null> {
+    const { typeScript } = buildResolveName({ name, chain: this.chain });
+
+    try {
+      const res = await fetch(this.config.rpcUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: 0,
+          jsonrpc: '2.0',
+          method: 'get_cells',
+          params: [
+            {
+              script: {
+                code_hash: typeScript.codeHash,
+                hash_type: typeScript.hashType,
+                args: typeScript.args,
+              },
+              script_type: 'type',
+            },
+            'asc',
+            '0x1',
+          ],
+        }),
+      });
+      const data = await res.json();
+      const cells = data.result?.objects;
+      if (!cells || cells.length === 0) {
+        return null;
+      }
+
+      const cellData = cells[0].output_data as HexString;
+      const metaAddress = metaAddressFromNameData(cellData);
+      return { metaAddress };
+    } catch (err: any) {
+      this.logger.error(`Failed to resolve CKB name "${name}": ${err.message}`);
+      return null;
+    }
   }
 
   async fundWallet(address: string): Promise<TxResult> {
