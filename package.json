@@ -26,7 +26,7 @@
     "@phala/dstack-sdk": "^0.5.7",
     "@solana/web3.js": "^1.98.4",
     "@stellar/stellar-sdk": "^13.1.0",
-    "@wraith-protocol/sdk": "^1.4.0",
+    "@wraith-protocol/sdk": "^1.4.1",
     "pg": "^8.13.0",
     "reflect-metadata": "^0.2.1",
     "rxjs": "^7.8.1",

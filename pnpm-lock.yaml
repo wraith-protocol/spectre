@@ -47,8 +47,8 @@ importers:
         specifier: ^13.1.0
         version: 13.3.0
       '@wraith-protocol/sdk':
-        specifier: ^1.4.0
-        version: 1.4.0(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6))(@stellar/stellar-sdk@13.3.0)(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)
+        specifier: ^1.4.1
+        version: 1.4.1(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6))(@stellar/stellar-sdk@13.3.0)(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)
       pg:
         specifier: ^8.13.0
         version: 8.20.0
@@ -865,10 +865,10 @@ packages:
         integrity: sha512-kPSSXE6De1XOR820C90RIo2ogvZG+c3KiHzqUoO/F34Y2shGzesfqv7o57xrxovZJH/MetF5UjroJ/R/3isoiw==,
       }
 
-  '@wraith-protocol/sdk@1.4.0':
+  '@wraith-protocol/sdk@1.4.1':
     resolution:
       {
-        integrity: sha512-azQM0u6y1U6tL2Eq+gdh4SOUr4U84uwyJQ3XzUObLlo7uRgPN9zDbKe+GKJN33UjH+v42OhEE0dvQLbLS9KeNw==,
+        integrity: sha512-sllI7aLShkPaJe37ya5ZA059wK8eOo+7uNFVcLSFhOoFCqTJYSPcaZWU+YHNuX3O/5nFgWfpkMtSCZzeZr5S8A==,
       }
     peerDependencies:
       '@solana/web3.js': ^1.95.0
@@ -4878,7 +4878,7 @@ snapshots:
       '@webassemblyjs/ast': 1.14.1
       '@xtuc/long': 4.2.2
 
-  '@wraith-protocol/sdk@1.4.0(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6))(@stellar/stellar-sdk@13.3.0)(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)':
+  '@wraith-protocol/sdk@1.4.1(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6))(@stellar/stellar-sdk@13.3.0)(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)':
     dependencies:
       '@noble/curves': 1.9.7
       '@noble/hashes': 1.8.0
